@@ -1,8 +1,8 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var userSchema = new Schema({
-  categoryId: { type: String, required: true },
+var productSchema = new Schema({
+  categoryId: {type: Schema.Types.ObjectId, ref: 'Category'},
   productName: { type: String, required: true },
   productDescription: { type: String, required: true },
   productDate: Date,
@@ -12,12 +12,5 @@ var userSchema = new Schema({
   productPrice: { type: Number, required: false }
 });
 
-userSchema.methods.encryptPassword = function(password) {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
-};
 
-userSchema.methods.validPassword = function(password) {
-  return bcrypt.compareSync(password, this.password);
-};
-
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("Product", productSchema);
