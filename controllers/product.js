@@ -32,8 +32,10 @@ exports.addProduct = (req, res) =>{
     product.productDescription = req.body.description
     product.productLength = req.body.length
     product.productWidth = req.body.width
+    product.productHeight = req.body.height
     product.productStock = req.body.stock
     product.productPrice = req.body.price
+    product.productSold = req.body.sold
     product.productDate = Date.now()
 
 

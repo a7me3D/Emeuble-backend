@@ -9,8 +9,10 @@ var productSchema = new Schema({
   productDate: Date,
   productLength: { type: Number, required: true },
   productWidth: { type: Number, required: true },
+  productHeight: { type: Number, required: true },
   productStock: { type: Number, required: false },
-  productPrice: { type: Number, required: false }
+  productPrice: { type: Number, required: false },
+  productSold: { type: Number, required: false }
 });
 
 
