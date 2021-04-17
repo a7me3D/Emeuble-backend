@@ -14,6 +14,9 @@ exports.getUser = (req, res) => {
           message: "user found",
           uid: user._id,
           email: user.email,
+          firstname: user.firstName,
+          lastname: user.lastName,
+          adress: user.adress,
           joined: user.created_At
         });
       }
