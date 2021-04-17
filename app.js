@@ -6,10 +6,15 @@ const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const apiRoutes = require("./routes/apiRoutes");
+// import routes
+const auth = require("./routes/auth");
+const product = require("./routes/product");
+const user = require("./routes/user");
+const category = require("./routes/category");
 
 //MongoDB config
 require("./loaders/db");
+require("./loaders/dbInit");
 const app = express();
 
 app.use(bodyParser.json());
@@ -17,6 +22,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(logger("dev"));
 
-app.use("/api", apiRoutes);
+// user routes
+app.use("/api/auth", auth);
+app.use("/api/product", product);
+app.use("/api/user", user);
+app.use("/api/category", category);
 
 app.listen(process.env.PORT);
