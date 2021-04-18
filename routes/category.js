@@ -1,11 +1,13 @@
 const express = require("express");
 const router = express.Router()
+const auth = require("../middleware/jwt")
+const { isAdmin } = require("../middleware/admin");
 
 const {getCategories, deleteCategory, addCategory} = require("../controllers/category")
 
-router.get("/", getCategories)
-router.post("/delete/:id", deleteCategory)
-router.post("/add", addCategory)
+router.get("/", auth.checkToken, isAdmin, getCategories)
+router.post("/delete/:id", auth.checkToken, isAdmin, deleteCategory)
+router.post("/add", auth.checkToken, isAdmin, addCategory)
 
 
 module.exports = router
