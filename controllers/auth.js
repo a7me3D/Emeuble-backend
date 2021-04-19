@@ -57,6 +57,7 @@ exports.register = async (req, res) => {
         user.firstName = req.body.firstName,
         user.lastName = req.body.lastName,
         user.adress = req.body.adress,
+        user.phone = req.body.phone,
         user.password = user.encryptPassword(req.body.password),
         user.created_At = Date.now()
 
