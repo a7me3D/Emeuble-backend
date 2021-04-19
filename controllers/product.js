@@ -3,8 +3,20 @@ const Product = require("../models/product")
 
 exports.allProducts = async (req, res) => {
     try{
-        const products = await Product.find().lean()
-        return res.status(200).json(products)
+        const { page = 1, limit = 9 } = req.query;
+
+        const products = await Product.find()
+        .limit(limit * 1)
+        .skip((page - 1) * limit)
+        .lean()
+
+        const count = await Posts.countDocuments();
+
+        return res.status(200).json({
+            products,
+            totalPages: Math.ceil(count / limit),
+            currentPage: page
+        })
     }catch{
         return res.status(500).json({message:"Internal server error"})
     }
