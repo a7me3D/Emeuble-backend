@@ -4,13 +4,23 @@ const Product = require("../models/product")
 exports.allProducts = async (req, res) => {
     try{
         const { page = 1, limit = 9 } = req.query;
+        const { category, name} = req.query
+        
+        const filter = {'$and':[
+            category ? {"categoryId":category} : null,
+            name ? {"productName":{ "$regex": name, "$options": "i" }} : null    
+        ]}
 
-        const products = await Product.find()
+        // remove null
+        filter["$and"] = filter["$and"].filter(function(query) { return query; });
+        if (filter["$and"].length === 0) delete filter["$and"]
+
+        const products = await Product.find(filter)
         .limit(limit * 1)
         .skip((page - 1) * limit)
         .lean()
 
-        const count = await Posts.countDocuments();
+        const count = await Product.countDocuments();
 
         return res.status(200).json({
             products,
