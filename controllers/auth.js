@@ -3,7 +3,8 @@ const jwt = require("jsonwebtoken");
 
 
 exports.login = (req, res) => {
-    User.findOne({ email: req.body.email }, function (err, user) {
+  console.log(req.body)  
+  User.findOne({ email: req.body.email }, function (err, user) {
       if (err) {
         console.log(err)
         return res.status(401).json({
@@ -12,13 +13,12 @@ exports.login = (req, res) => {
       }
       if (!user) {
         console.log("No user found.")
-        res.status(401).json({
+        return res.status(401).json({
           message: "Auth failed"
         });
       }
       if (!user.validPassword(req.body.password)) {
-        req.flash('error', 'Wrong password');
-        res.status(401).json({
+        return res.status(401).json({
           message: "Auth failed"
         });
       }
