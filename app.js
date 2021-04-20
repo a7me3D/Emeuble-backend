@@ -12,6 +12,7 @@ const product = require("./routes/product");
 const user = require("./routes/user");
 const category = require("./routes/category");
 const message = require("./routes/message");
+const command = require("./routes/command");
 
 //MongoDB config
 require("./loaders/db");
@@ -29,5 +30,6 @@ app.use("/api/product", product);
 app.use("/api/user", user);
 app.use("/api/category", category);
 app.use("/api/message", message);
+app.use("/api/command", command);
 
 app.listen(process.env.PORT);
