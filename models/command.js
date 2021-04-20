@@ -6,7 +6,7 @@ var commandSchema = new Schema({
   productsId: [{ type : Schema.Types.ObjectId, ref: 'Product' }],
   status: { type: Boolean, required: true, default:false },
   commandPrice: { type: Number, required: true },
-  commandtDate: Date,
+  commandDate: Date,
   
 });
 
