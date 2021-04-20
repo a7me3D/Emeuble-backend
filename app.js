@@ -11,6 +11,7 @@ const auth = require("./routes/auth");
 const product = require("./routes/product");
 const user = require("./routes/user");
 const category = require("./routes/category");
+const message = require("./routes/message");
 
 //MongoDB config
 require("./loaders/db");
@@ -27,5 +28,6 @@ app.use("/api/auth", auth);
 app.use("/api/product", product);
 app.use("/api/user", user);
 app.use("/api/category", category);
+app.use("/api/message", message);
 
 app.listen(process.env.PORT);
