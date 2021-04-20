@@ -2,6 +2,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
+var cors = require('cors');
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -23,6 +24,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(logger("dev"));
+app.use(cors());
+
 
 // user routes
 app.use("/api/auth", auth);
