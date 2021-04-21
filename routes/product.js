@@ -7,7 +7,6 @@ const { allProducts, addProduct, productById, updateProduct, deleteProduct} = re
 
 router.get("/", allProducts)
 
-// Todo: jwtCheck + isAdmin
 router.post("/add", auth.checkToken, isAdmin, addProduct)
 router.post("/update/:id", auth.checkToken, isAdmin, updateProduct)
 router.post("/delete/:id", auth.checkToken, isAdmin, deleteProduct)
