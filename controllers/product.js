@@ -76,7 +76,7 @@ exports.addProduct = (req, res) =>{
 
 exports.updateProduct = (req, res) => {
     const productId = req.params.id
-    Product.findByIdAndUpdate(productId, req.body, (err, product) => {
+    Product.findByIdAndUpdate(productId, req.body.product, (err, product) => {
         if(err) return res.status(500).json({message:err})
         else return res.status(200).json(product)
     })
