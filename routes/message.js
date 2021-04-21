@@ -5,7 +5,7 @@ const { getMessages, addMessage } = require("../controllers/message");
 const auth = require("../middleware/jwt")
 
 router.get("/", auth.checkToken , isAdmin, getMessages)
-router.get("/send", addMessage)
+router.post("/send", addMessage)
 router.get("/me", auth.checkToken, addMessage)
 
 
