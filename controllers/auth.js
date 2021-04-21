@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 
 
 exports.login = (req, res) => {
-  console.log(req.body)  
   User.findOne({ email: req.body.email }, function (err, user) {
       if (err) {
         console.log(err)
@@ -53,15 +52,15 @@ exports.login = (req, res) => {
 exports.register = async (req, res) => {
     try {
         const user = new User()
-        user.email = req.body.email,
-        user.firstName = req.body.firstName,
-        user.lastName = req.body.lastName,
-        user.adress = req.body.adress,
-        user.phone = req.body.phone,
-        user.password = user.encryptPassword(req.body.password),
+        user.email = req.body.user.email,
+        user.firstName = req.body.user.firstName,
+        user.lastName = req.body.user.lastName,
+        user.adress = req.body.user.adress,
+        user.phone = req.body.user.phone,
+        user.password = user.encryptPassword(req.body.user.password),
         user.created_At = Date.now()
 
-        User.findOne({ email: req.body.email }, function (err, result) {
+        User.findOne({ email: req.body.user.email }, function (err, result) {
           if (result) {
             console.log("User already exists")
             return res.status(401).json({message: "Email already exists"});
