@@ -49,20 +49,22 @@ exports.productFilter = async (req, res) => {
 
 exports.addProduct = (req, res) =>{
     const product = new Product()
-    product.categoryId = req.body.category
-    product.productName = req.body.name
-    product.productDescription = req.body.description
-    product.productLength = req.body.length
-    product.productWidth = req.body.width
-    product.productHeight = req.body.height
-    product.productStock = req.body.stock
-    product.productPrice = req.body.price
-    product.productSold = req.body.sold
+    product.categoryId = req.body.product.productCategoryId
+    product.productName = req.body.product.productName
+    product.productDescription = req.body.product.productDescription
+    product.productLength = req.body.product.productLength
+    product.productWidth = req.body.product.productWidth
+    product.productHeight = req.body.product.productHeight
+    product.productStock = req.body.product.productStock
+    product.productPrice = req.body.product.productPrice
+    product.productSold = req.body.product.productSold
     product.productDate = Date.now()
 
+    
 
     product.save((err, result) =>{
         if(err){
+            console.log(req.body)
             return res.status(500).json({message:"Internal server error"})
         }
         else{
