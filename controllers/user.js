@@ -17,6 +17,7 @@ exports.getUser = (req, res) => {
           firstname: user.firstName,
           lastname: user.lastName,
           adress: user.adress,
+          phone: user.phone,
           joined: user.created_At
         });
       }
