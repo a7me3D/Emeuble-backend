@@ -5,7 +5,7 @@ const { isAdmin } = require("../middleware/admin");
 
 const {getCategories, deleteCategory, addCategory} = require("../controllers/category")
 
-router.get("/", auth.checkToken, isAdmin, getCategories)
+router.get("/", getCategories)
 router.delete("/delete/:id", auth.checkToken, isAdmin, deleteCategory)
 router.post("/add", auth.checkToken, isAdmin, addCategory)
 
