@@ -32,3 +32,11 @@ exports.getMessagesByEmail = async (req, res) => {
     }
 }
 
+exports.deleteMessage = async (req,res) => {
+    const messageId = req.params.id
+    Message.findByIdAndDelete(messageId, (err, message) => {
+        if(err) return res.status(500).json({message:err})
+        else return res.status(200).json({message:"Message deleted"})
+
+    })
+}
