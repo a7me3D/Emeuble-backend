@@ -2,10 +2,10 @@ const Message = require("../models/message")
 
 exports.addMessage = (req, res) => {
     const message = new Message()
-    message.messageName = req.body.name
-    message.messageEmail = req.body.email
-    message.messageSubject = req.body.subject
-    message.messageContent = req.body.content
+    message.messageName = req.body.message.name
+    message.messageEmail = req.body.message.email
+    message.messageSubject = req.body.message.subject
+    message.messageContent = req.body.message.content
     message.messageDate = Date.now()
 
     message.save((err, msg)=>{
