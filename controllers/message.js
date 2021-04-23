@@ -25,7 +25,8 @@ exports.getMessages = async  (req, res) => {
 
 exports.getMessagesByEmail = async (req, res) => {
     try{
-        const messages = Message.find({email:req.decoded.email})
+        const userEmail = req.decoded.email
+        const messages = await Message.find({messageEmail: userEmail}).lean()
         return res.status(200).json(messages)
     }catch{
         return res.status(500).json({message:"Internal server error"})
