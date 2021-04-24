@@ -37,7 +37,8 @@ exports.login = (req, res) => {
         return res.status(200).json({
           message: "Auth successful",
           token: token,
-          uid: user._id
+          uid: user._id,
+          ...(user.isAdmin && {isAdmin: true})
         });
       }
     }).catch(err => {
