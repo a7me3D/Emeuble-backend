@@ -1,4 +1,6 @@
 const Product = require("../models/product")
+var formidable = require('formidable');
+const { uploadFile } = require("../middleware/uploader");
 
 
 exports.allProducts = async (req, res) => {
@@ -48,28 +50,35 @@ exports.productFilter = async (req, res) => {
 }
 
 exports.addProduct = (req, res) =>{
-    const product = new Product()
-    product.categoryId = req.body.product.productCategoryId
-    product.productName = req.body.product.productName
-    product.productDescription = req.body.product.productDescription
-    product.productLength = req.body.product.productLength
-    product.productWidth = req.body.product.productWidth
-    product.productHeight = req.body.product.productHeight
-    product.productStock = req.body.product.productStock
-    product.productPrice = req.body.product.productPrice
-    product.productSold = req.body.product.productSold
-    product.productDate = Date.now()
 
-    
+    var form = new formidable.IncomingForm();
 
-    product.save((err, result) =>{
-        if(err){
-            console.log(req.body)
-            return res.status(500).json({message:"Internal server error"})
-        }
-        else{
-            return res.status(200).json({message:"Product added!"})
-        }
+    form.parse(req,async (err, fields, files) => {
+        const product = new Product()
+        product.categoryId = fields.productCategoryId
+        product.productName = fields.productName
+        product.productDescription = fields.productDescription
+        product.productLength = fields.productLength
+        product.productWidth = fields.productWidth
+        product.productHeight = fields.productHeight
+        product.productStock = fields.productStock
+        product.productPrice = fields.productPrice
+        product.productSold = fields.productSold
+        product.productDate = Date.now()
+        
+        if (files.productImg)
+            product.productImg = await uploadFile(files.productImg.name, files.productImg.path)
+                                .then((url) => url);
+        console.log(product.productImg)
+        product.save((err, result) =>{
+            if(err){
+                console.log(req.body)
+                return res.status(500).json({message:"Internal server error"})
+            }
+            else{
+                return res.status(200).json({message:"Product added!"})
+            }
+        })
     })
 
 }
