@@ -84,10 +84,18 @@ exports.addProduct = (req, res) =>{
 }
 
 exports.updateProduct = (req, res) => {
-    const productId = req.params.id
-    Product.findByIdAndUpdate(productId, req.body.product, (err, product) => {
-        if(err) return res.status(500).json({message:err})
-        else return res.status(200).json(product)
+    var form = new formidable.IncomingForm();
+
+    form.parse(req,async (err, fields, files) => {    
+        const productId = req.params.id    
+        if (files.productImg)
+            productImg = await uploadFile(files.productImg.name, files.productImg.path)
+                                .then((url) => url);
+        let update = {...fields, ...(files.productImg && { productImg } )} 
+        Product.findByIdAndUpdate(productId, update, (err, product) => {
+            if(err) return res.status(500).json({message:err})
+            else return res.status(200).json(product)
+        })
     })
 }
 
