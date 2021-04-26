@@ -9,7 +9,7 @@ router.get("/", allProducts)
 
 router.post("/add", auth.checkToken, isAdmin, addProduct)
 router.post("/update/:id", auth.checkToken, isAdmin, updateProduct)
-router.post("/delete/:id", auth.checkToken, isAdmin, deleteProduct)
+router.delete("/delete/:id", auth.checkToken, isAdmin, deleteProduct)
 
 router.get("/:id", productById)
 
