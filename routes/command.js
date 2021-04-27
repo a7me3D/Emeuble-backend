@@ -7,8 +7,8 @@ const {getCommands, addCommand, validateCommand, getCommandsByUserId} = require(
 
 
 router.get('/', auth.checkToken, isAdmin, getCommands)
-router.get('/add', auth.checkToken,  addCommand)
-router.get('/validate/:commandId', auth.checkToken, isAdmin, validateCommand)
+router.post('/add', auth.checkToken,  addCommand)
+router.post('/validate/:commandId', auth.checkToken, isAdmin, validateCommand)
 router.get('/me', auth.checkToken, getCommandsByUserId)
 
 module.exports = router
