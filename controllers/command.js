@@ -1,3 +1,4 @@
+const command = require("../models/command")
 const Command = require("../models/command")
 
 
@@ -6,6 +7,8 @@ exports.addCommand = (req, res) =>{
     command.userId = req.decoded.userId
     command.productsId = req.body.products
     command.commandPrice = req.body.price
+    command.commandAdress = req.body.adress
+    command.commandPhone = req.body.phone
     command.commandDate = Date.now()
 
     command.save((err, result) =>{
@@ -39,10 +42,16 @@ exports.getCommandsByUserId = async (req, res) => {
 
 exports.validateCommand = (req, res) => {
     commandId = req.params.commandId
-
-    Command.findByIdAndUpdate(commandId, {status:true},(err, command) => {
-        if(err) return res.status(500).json({message:err})
-        else return res.status(200).json({"messsage":"Command verified"})
-    })
-
+    commandStatus = req.body.validate
+    
+    if (commandStatus)
+        Command.findByIdAndUpdate(commandId, {status:true},(err, command) => {
+            if(err) return res.status(500).json({message:err})
+            else return res.status(200).json({"messsage":"Command verified"})
+        })
+    else
+        Command.findByIdAndRemove(commandId, (err, command) => {
+            if(err) return res.status(500).json({message:err})
+            else return res.status(200).json({"messsage":"Command deleted"})
+        })
 }
